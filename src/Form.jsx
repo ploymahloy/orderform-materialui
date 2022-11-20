@@ -11,48 +11,84 @@ import {
 	Typography,
 } from '@mui/material';
 
-export default function Form() {
+export default function Form({ onSaveOrderData }) {
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [product, setProduct] = useState('');
 	const [quantity, setQuantity] = useState('');
 	const [price, setPrice] = useState('');
-
 	const quantityMenu = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
+	// Generate random Order IDs
+	const makeId = () => {
+		var result = '';
+		var characters =
+			'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		for (let i = 0; i < 12; i++) {
+			result += characters.charAt(
+				Math.floor(Math.random() * characters.length)
+			);
+		}
+		return result;
+	};
+
+	// Converts product value integer to product name
+	const productName = () => {
+		switch (product) {
+			case 1:
+				return 'Shirt';
+				break;
+			case 2:
+				return 'Hat';
+				break;
+			case 3:
+				return 'Sweatshirt';
+				break;
+		}
+	};
+
+  // Calculates order cost on change of product or quantity state
+  useEffect(() => {
+    if (quantity > 0) {
+      switch (product) {
+        case 1:
+          setPrice((19.99 * quantity).toFixed(2));
+          break;
+        case 2:
+          setPrice((14.99 * quantity).toFixed(2));
+          break;
+        case 3:
+          setPrice((29.98 * quantity).toFixed(2));
+          break;
+      }
+    }
+  }, [product, quantity]);
+
+	// Sends new order to App, resets form fields
 	const submitHandler = (e) => {
 		e.preventDefault();
 
-		// const expenseData = {
-		// 	title: enteredTitle,
-		// 	amount: +enteredAmount,
-		// 	date: new Date(enteredDate),
-		// };
+		const newOrder = {
+			firstName: firstName,
+			lastName: lastName,
+			orderId: makeId(),
+			productName: productName(),
+			quantity: quantity,
+			price: price,
+		};
 
-		// props.onSaveOrderData(order);
+		onSaveOrderData(newOrder);
 		setFirstName('');
 		setLastName('');
 		setProduct('');
 		setQuantity('');
+		setPrice('');
 	};
-
-	useEffect(() => {
-		if (quantity > 0) {
-			if (product === 1) {
-				setPrice((19.99 * quantity).toFixed(2));
-			}
-			if (product === 2) {
-				setPrice((14.99 * quantity).toFixed(2));
-			}
-			if (product === 3) {
-				setPrice((29.98 * quantity).toFixed(2));
-			}
-		}
-	}, [product, quantity]);
 
 	return (
 		<>
 			<Typography variant="h1">Form</Typography>
+			{/* Form */}
 			<Box
 				sx={{
 					padding: '2rem',
