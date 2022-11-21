@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
 
 import Form from './Form.jsx';
-// import Navbar from './Navbar.jsx';
 import Orders from './Orders.jsx';
 import Error from './Error.jsx';
 
@@ -51,69 +50,57 @@ const navBackgroundStyles = {
 	backgroundColor: 'rgb(255, 255, 255)',
 };
 
-
 function App() {
-  const [orders, setOrders] = useState(starterOrders);
-  
-  useEffect(() => {
-    const cachedData = window.localStorage.getItem('ORDERS_ARRAY');
-    if (cachedData?.length) {
-      setOrders(JSON.parse(cachedData));
-    }
-  }, [])
+	const [orders, setOrders] = useState(starterOrders);
 
-  // useEffect(() => {
-  //   window.localStorage.setItem('ORDERS_ARRAY', JSON.stringify(orders))
-  // }, [orders])
+	useEffect(() => {
+		const cachedData = window.localStorage.getItem('ORDERS_ARRAY');
+		if (cachedData?.length) {
+			setOrders(JSON.parse(cachedData));
+		}
+	}, []);
 
 	const newOrderFunc = (order) => {
-    setOrders((prevOrders) => {
-      const newOrders = [order, ...prevOrders]
-      window.localStorage.setItem("ORDERS_ARRAY", JSON.stringify(newOrders));
+		setOrders((prevOrders) => {
+			const newOrders = [order, ...prevOrders];
+			window.localStorage.setItem('ORDERS_ARRAY', JSON.stringify(newOrders));
 			return newOrders;
 		});
 	};
 
-	// return (
-	// 	<Router>
-	// 		<div style={navBackgroundStyles}>
-	// 			<div>
-	// 				<Typography
-	// 					sx={{
-	// 						marginLeft: '1rem',
-	// 						fontSize: '2rem',
-	// 						color: 'rgb(33, 150, 243)',
-	// 					}}
-	// 				>
-	// 					Clothing Co.
-	// 				</Typography>
-	// 			</div>
-	// 			<div>
-	// 				<Link to="/" state={{ onSaveOrderData: newOrderFunc }}>
-	// 					<Button sx={{ marginRight: '1rem' }} variant="text">
-	// 						Place Order
-	// 					</Button>
-	// 				</Link>
-	// 				<Link to="/orders" state={{ orders: orders }}>
-	// 					<Button sx={{ marginRight: '1rem' }} variant="text">
-	// 						Orders
-	// 					</Button>
-	// 				</Link>
-	// 			</div>
-	// 		</div>
-	// 		<Routes>
-	// 			<Route path="/" element={<Form />} />
-	// 			<Route path="/orders" element={<Orders />} />
-	// 			<Route path="/*" element={<Error />} />
-	// 		</Routes>
-	// 	</Router>
-	// );
-
 	return (
-		<>
-			<Form onSaveOrderData={newOrderFunc} />
-			<Orders orders={orders} />
-		</>
+		<Router>
+			<div style={navBackgroundStyles}>
+				<div>
+					<Typography
+						sx={{
+							marginLeft: '1rem',
+							fontSize: '2rem',
+							color: 'rgb(33, 150, 243)',
+						}}
+					>
+						Clothing Co.
+					</Typography>
+				</div>
+				<div>
+					<Link to="/">
+						<Button sx={{ marginRight: '1rem' }} variant="text">
+							Place Order
+						</Button>
+					</Link>
+					<Link to="/orders">
+						<Button sx={{ marginRight: '1rem' }} variant="text">
+							Orders
+						</Button>
+					</Link>
+				</div>
+			</div>
+			<Routes>
+				<Route path="/" element={<Form onSaveOrderData={newOrderFunc} />} />
+				<Route path="/orders" element={<Orders orders={orders} />} />
+				<Route path="/*" element={<Error />} />
+			</Routes>
+		</Router>
 	);
 }
 

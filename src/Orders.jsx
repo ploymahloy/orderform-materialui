@@ -1,5 +1,4 @@
 import React from 'react';
-// import { useLocation } from 'react-router-dom';
 import {
 	Paper,
 	Table,
@@ -11,10 +10,7 @@ import {
 	Typography,
 } from '@mui/material';
 
-export default function Orders({orders}) {
-	// const location = useLocation();
-	// const orders = location.state?.orders;
-
+export default function Orders({ orders }) {
 	return (
 		<TableContainer component={Paper}>
 			<Typography variant="h1">Orders</Typography>

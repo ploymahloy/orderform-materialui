@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-// import { useLocation } from 'react-router-dom'; 
+// import { useLocation } from 'react-router-dom';
 import {
 	Alert,
 	Box,
@@ -8,8 +8,8 @@ import {
 	InputLabel,
 	MenuItem,
 	OutlinedInput,
-  Select,
-  Slide,
+	Select,
+	Slide,
 	TextField,
 } from '@mui/material';
 
@@ -92,7 +92,7 @@ export default function Form({ onSaveOrderData }) {
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',
-        height: '90vh'
+				height: '90vh',
 			}}
 		>
 			<div style={{ position: 'fixed', top: '60px', right: '10px' }}>
