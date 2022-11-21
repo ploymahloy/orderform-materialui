@@ -7,8 +7,7 @@ import {
 	MenuItem,
 	OutlinedInput,
 	Select,
-	TextField,
-	Typography,
+	TextField
 } from '@mui/material';
 
 export default function Form({ onSaveOrderData }) {
@@ -36,33 +35,30 @@ export default function Form({ onSaveOrderData }) {
 	const productName = () => {
 		switch (product) {
 			case 1:
-				return 'Shirt';
-				break;
+				return 'Shirt'
 			case 2:
-				return 'Hat';
-				break;
+				return 'Hat'
 			case 3:
-				return 'Sweatshirt';
-				break;
+        return 'Sweatshirt'
 		}
 	};
 
-  // Calculates order cost on change of product or quantity state
-  useEffect(() => {
-    if (quantity > 0) {
-      switch (product) {
-        case 1:
-          setPrice((19.99 * quantity).toFixed(2));
-          break;
-        case 2:
-          setPrice((14.99 * quantity).toFixed(2));
-          break;
-        case 3:
-          setPrice((29.98 * quantity).toFixed(2));
-          break;
-      }
-    }
-  }, [product, quantity]);
+	// Calculates order cost on change of product or quantity state
+	useEffect(() => {
+		if (quantity > 0) {
+			switch (product) {
+				case 1:
+					setPrice((19.99 * quantity).toFixed(2));
+					break;
+				case 2:
+					setPrice((14.99 * quantity).toFixed(2));
+					break;
+				case 3:
+					setPrice((29.98 * quantity).toFixed(2));
+					break;
+			}
+		}
+	}, [product, quantity]);
 
 	// Sends new order to App, resets form fields
 	const submitHandler = (e) => {
@@ -86,14 +82,21 @@ export default function Form({ onSaveOrderData }) {
 	};
 
 	return (
-		<>
-			<Typography variant="h1">Form</Typography>
-			{/* Form */}
+		<div
+			style={{
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+				height: '90vh',
+			}}
+		>
 			<Box
 				sx={{
 					padding: '2rem',
 					width: 'fit-content',
 					border: '1px solid rgb(148, 148, 148)',
+					borderRadius: '5px',
+					backgroundColor: 'rgb(255, 255, 255)',
 				}}
 			>
 				<TextField
@@ -183,6 +186,6 @@ export default function Form({ onSaveOrderData }) {
 					Place Order
 				</Button>
 			</Box>
-		</>
+		</div>
 	);
 }

@@ -1,4 +1,5 @@
 import Form from './Form.jsx';
+import Navbar from './Navbar.jsx';
 import Orders from './Orders.jsx';
 
 import './App.css';
@@ -49,9 +50,10 @@ function App() {
 	};
 
 	return (
-		<>
+    <>
+      <Navbar />
 			<Form onSaveOrderData={newOrderFunc} />
-      <Orders orders={orders} />
+      {/* <Orders orders={orders} /> */}
 		</>
 	);
 }
