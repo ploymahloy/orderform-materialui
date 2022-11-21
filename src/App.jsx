@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
 
@@ -13,7 +13,7 @@ const starterOrders = [
 	{
 		firstName: 'Billy',
 		lastName: 'Gibbons',
-		orderId: '8h3Hudf6',
+		orderId: 'ZZTop0000001',
 		productName: 'Hat',
 		quantity: 2,
 		price: 14.99,
@@ -21,7 +21,7 @@ const starterOrders = [
 	{
 		firstName: 'Dusty',
 		lastName: 'Hill',
-		orderId: 'A4310GaB',
+		orderId: 'ZZTop0000002',
 		productName: 'Shirt',
 		quantity: 1,
 		price: 19.99,
@@ -29,7 +29,7 @@ const starterOrders = [
 	{
 		firstName: 'Frank',
 		lastName: 'Beard',
-		orderId: 'ZI2fZ330',
+		orderId: 'ZZTop0000003',
 		productName: 'Hat',
 		quantity: 2,
 		price: 29.98,
@@ -37,7 +37,7 @@ const starterOrders = [
 	{
 		firstName: 'David',
 		lastName: 'Bowie',
-		orderId: '811K3Dse',
+		orderId: 'UndrPr3ssr81',
 		productName: 'Sweatshirt',
 		quantity: 1,
 		price: 29.98,
@@ -51,57 +51,70 @@ const navBackgroundStyles = {
 	backgroundColor: 'rgb(255, 255, 255)',
 };
 
+
 function App() {
-	const [orders, setOrders] = useState(starterOrders);
+  const [orders, setOrders] = useState(starterOrders);
+  
+  useEffect(() => {
+    const cachedData = window.localStorage.getItem('ORDERS_ARRAY');
+    if (cachedData?.length) {
+      setOrders(JSON.parse(cachedData));
+    }
+  }, [])
+
+  // useEffect(() => {
+  //   window.localStorage.setItem('ORDERS_ARRAY', JSON.stringify(orders))
+  // }, [orders])
 
 	const newOrderFunc = (order) => {
-		setOrders((prevOrders) => {
-			return [order, ...prevOrders];
+    setOrders((prevOrders) => {
+      const newOrders = [order, ...prevOrders]
+      window.localStorage.setItem("ORDERS_ARRAY", JSON.stringify(newOrders));
+			return newOrders;
 		});
 	};
 
-	return (
-		<Router>
-			<div style={navBackgroundStyles}>
-				<div>
-					<Typography
-						sx={{
-							marginLeft: '1rem',
-							fontSize: '2rem',
-							color: 'rgb(33, 150, 243)',
-						}}
-					>
-						Clothing Co.
-					</Typography>
-				</div>
-				<div>
-					<Link to="/" state={{ onSaveOrderData: newOrderFunc }}>
-						<Button sx={{ marginRight: '1rem' }} variant="text">
-							Place Order
-						</Button>
-					</Link>
-					<Link to="/orders" state={{ orders: orders }}>
-						<Button sx={{ marginRight: '1rem' }} variant="text">
-							Orders
-						</Button>
-					</Link>
-				</div>
-			</div>
-			<Routes>
-				<Route path="/" element={<Form />} />
-				<Route path="/orders" element={<Orders />} />
-				<Route path="/*" element={<Error />} />
-			</Routes>
-		</Router>
-	);
-
 	// return (
-	//   <>
-	//     <Navbar />
-	// 		<Form onSaveOrderData={newOrderFunc} />
-	//     {/* <Orders orders={orders} /> */}
-	// 	</>
+	// 	<Router>
+	// 		<div style={navBackgroundStyles}>
+	// 			<div>
+	// 				<Typography
+	// 					sx={{
+	// 						marginLeft: '1rem',
+	// 						fontSize: '2rem',
+	// 						color: 'rgb(33, 150, 243)',
+	// 					}}
+	// 				>
+	// 					Clothing Co.
+	// 				</Typography>
+	// 			</div>
+	// 			<div>
+	// 				<Link to="/" state={{ onSaveOrderData: newOrderFunc }}>
+	// 					<Button sx={{ marginRight: '1rem' }} variant="text">
+	// 						Place Order
+	// 					</Button>
+	// 				</Link>
+	// 				<Link to="/orders" state={{ orders: orders }}>
+	// 					<Button sx={{ marginRight: '1rem' }} variant="text">
+	// 						Orders
+	// 					</Button>
+	// 				</Link>
+	// 			</div>
+	// 		</div>
+	// 		<Routes>
+	// 			<Route path="/" element={<Form />} />
+	// 			<Route path="/orders" element={<Orders />} />
+	// 			<Route path="/*" element={<Error />} />
+	// 		</Routes>
+	// 	</Router>
 	// );
+
+	return (
+		<>
+			<Form onSaveOrderData={newOrderFunc} />
+			<Orders orders={orders} />
+		</>
+	);
 }
 
 export default App;
