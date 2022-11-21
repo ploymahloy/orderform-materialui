@@ -1,19 +1,16 @@
 import React from 'react';
 import {
-	Paper,
+  Box,
 	Table,
 	TableBody,
 	TableCell,
-	TableContainer,
 	TableHead,
-	TableRow,
-	Typography,
+  TableRow
 } from '@mui/material';
 
 export default function Orders({ orders }) {
 	return (
-		<TableContainer component={Paper}>
-			<Typography variant="h1">Orders</Typography>
+		<Box sx={{ margin: '5rem 2rem', borderRadius: '5px', backgroundColor: 'white' }}>
 			<Table sx={{ minWidth: 600 }} aria-label="simple table">
 				<TableHead>
 					<TableRow>
@@ -41,6 +38,6 @@ export default function Orders({ orders }) {
 					))}
 				</TableBody>
 			</Table>
-		</TableContainer>
+		</Box>
 	);
 }
