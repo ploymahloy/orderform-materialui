@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
 import {
+	Alert,
 	Box,
 	Button,
 	InputAdornment,
 	InputLabel,
 	MenuItem,
 	OutlinedInput,
-	Select,
-	TextField
+  Select,
+  Slide,
+	TextField,
 } from '@mui/material';
 
 export default function Form({ onSaveOrderData }) {
+	const [isActive, setIsActive] = useState(false);
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [product, setProduct] = useState('');
@@ -35,11 +38,11 @@ export default function Form({ onSaveOrderData }) {
 	const productName = () => {
 		switch (product) {
 			case 1:
-				return 'Shirt'
+				return 'Shirt';
 			case 2:
-				return 'Hat'
+				return 'Hat';
 			case 3:
-        return 'Sweatshirt'
+				return 'Sweatshirt';
 		}
 	};
 
@@ -73,6 +76,7 @@ export default function Form({ onSaveOrderData }) {
 			price: price,
 		};
 
+		setIsActive(true);
 		onSaveOrderData(newOrder);
 		setFirstName('');
 		setLastName('');
@@ -87,9 +91,20 @@ export default function Form({ onSaveOrderData }) {
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',
-				height: '90vh',
+        height: '90vh'
 			}}
 		>
+			<div style={{ position: 'fixed', top: '60px', right: '10px' }}>
+				<Slide direction="left" in={isActive} mountOnEnter unmountOnExit>
+					<Alert
+						severity="success"
+						onClose={() => setIsActive(false)}
+						style={{ display: isActive ? 'flex' : 'none' }}
+					>
+						Thank you for your order!
+					</Alert>
+				</Slide>
+			</div>
 			<Box
 				sx={{
 					padding: '2rem',

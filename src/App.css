@@ -1,7 +1,8 @@
 body {
-	background-image: url('../public/pattern.png');
+	/* background-image: url('../public/pattern.png');
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
-	background-size: cover;
+	background-size: cover; */
+  background-color: rgb(33, 150, 243);
 }
