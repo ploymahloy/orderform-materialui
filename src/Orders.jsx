@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import {
 	Paper,
 	Table,
@@ -10,7 +11,10 @@ import {
 	Typography,
 } from '@mui/material';
 
-export default function Orders({orders}) {
+export default function Orders(props) {
+	const location = useLocation();
+	const orders = location.state?.orders;
+
 	return (
 		<TableContainer component={Paper}>
 			<Typography variant="h1">Orders</Typography>
@@ -25,8 +29,8 @@ export default function Orders({orders}) {
 						<TableCell>Price</TableCell>
 					</TableRow>
 				</TableHead>
-        <TableBody>
-          {orders.map((order) => (
+				<TableBody>
+					{orders.map((order) => (
 						<TableRow
 							key={order.orderId}
 							sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -37,7 +41,7 @@ export default function Orders({orders}) {
 							<TableCell>{order.productName}</TableCell>
 							<TableCell>{order.quantity}</TableCell>
 							<TableCell>{'$' + `${order.price}`}</TableCell>
-            </TableRow>
+						</TableRow>
 					))}
 				</TableBody>
 			</Table>

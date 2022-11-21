@@ -1,9 +1,13 @@
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { Button, Typography } from '@mui/material';
+
 import Form from './Form.jsx';
-import Navbar from './Navbar.jsx';
+// import Navbar from './Navbar.jsx';
 import Orders from './Orders.jsx';
+import Error from './Error.jsx';
 
 import './App.css';
-import { useState } from 'react';
 
 const starterOrders = [
 	{
@@ -40,6 +44,13 @@ const starterOrders = [
 	},
 ];
 
+const navBackgroundStyles = {
+	display: 'flex',
+	justifyContent: 'space-between',
+	alignItems: 'center',
+	backgroundColor: 'rgb(255, 255, 255)',
+};
+
 function App() {
 	const [orders, setOrders] = useState(starterOrders);
 
@@ -50,12 +61,47 @@ function App() {
 	};
 
 	return (
-    <>
-      <Navbar />
-			<Form onSaveOrderData={newOrderFunc} />
-      {/* <Orders orders={orders} /> */}
-		</>
+		<Router>
+			<div style={navBackgroundStyles}>
+				<div>
+					<Typography
+						sx={{
+							marginLeft: '1rem',
+							fontSize: '2rem',
+							color: 'rgb(33, 150, 243)',
+						}}
+					>
+						Clothing Co.
+					</Typography>
+				</div>
+				<div>
+					<Link to="/" state={{ onSaveOrderData: newOrderFunc }}>
+						<Button sx={{ marginRight: '1rem' }} variant="text">
+							Place Order
+						</Button>
+					</Link>
+					<Link to="/orders" state={{ orders: orders }}>
+						<Button sx={{ marginRight: '1rem' }} variant="text">
+							Orders
+						</Button>
+					</Link>
+				</div>
+			</div>
+			<Routes>
+				<Route path="/" element={<Form />} />
+				<Route path="/orders" element={<Orders />} />
+				<Route path="/*" element={<Error />} />
+			</Routes>
+		</Router>
 	);
+
+	// return (
+	//   <>
+	//     <Navbar />
+	// 		<Form onSaveOrderData={newOrderFunc} />
+	//     {/* <Orders orders={orders} /> */}
+	// 	</>
+	// );
 }
 
 export default App;
