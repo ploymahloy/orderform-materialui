@@ -1,8 +1,19 @@
 body {
-	/* background-image: url('../public/pattern.png');
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-size: cover; */
-  background-color: rgb(33, 150, 243);
+	background-color: rgb(33, 150, 243);
+}
+
+.link {
+	margin-right: 1rem;
+}
+
+.link:link,
+.link:visited,
+.link:hover,
+.link:active {
+	color: rgb(33, 150, 243);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
 }

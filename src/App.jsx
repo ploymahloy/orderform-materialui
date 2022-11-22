@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
+import { Checkroom } from '@mui/icons-material';
 
 import Form from './Form.jsx';
 import Orders from './Orders.jsx';
@@ -74,6 +75,13 @@ function App() {
 				<div>
 					<Typography
 						sx={{
+							display: {
+								xs: 'none',
+								sm: 'block',
+								md: 'block',
+								lg: 'block',
+								xl: 'block',
+							},
 							marginLeft: '1rem',
 							fontSize: '2rem',
 							color: 'rgb(33, 150, 243)',
@@ -81,17 +89,27 @@ function App() {
 					>
 						Clothing Co.
 					</Typography>
+					<Checkroom
+						sx={{
+							display: {
+								xs: 'block',
+								sm: 'none',
+								md: 'none',
+								lg: 'none',
+								xl: 'none',
+							},
+							marginLeft: '1rem',
+							fontSize: '3rem',
+						}}
+						color="primary"
+					/>
 				</div>
 				<div>
-					<Link to="/">
-						<Button sx={{ marginRight: '1rem' }} variant="text">
-							Place Order
-						</Button>
+					<Link to="/" className="link">
+						Place Order
 					</Link>
-					<Link to="/orders">
-						<Button sx={{ marginRight: '1rem' }} variant="text">
-							Orders
-						</Button>
+					<Link to="/orders" className="link">
+						Orders
 					</Link>
 				</div>
 			</div>
