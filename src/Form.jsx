@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-// import { useLocation } from 'react-router-dom';
 import {
 	Alert,
 	Box,
@@ -21,6 +20,23 @@ export default function Form({ onSaveOrderData }) {
 	const [quantity, setQuantity] = useState('');
 	const [price, setPrice] = useState('');
 	const quantityMenu = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+	// Calculates order cost on change of product or quantity state
+	useEffect(() => {
+		if (quantity > 0) {
+			switch (product) {
+				case 1:
+					setPrice((19.99 * quantity).toFixed(2));
+					break;
+				case 2:
+					setPrice((14.99 * quantity).toFixed(2));
+					break;
+				case 3:
+					setPrice((29.98 * quantity).toFixed(2));
+					break;
+			}
+		}
+	}, [product, quantity]);
 
 	// Generate random Order IDs
 	const makeId = () => {
@@ -46,23 +62,6 @@ export default function Form({ onSaveOrderData }) {
 				return 'Sweatshirt';
 		}
 	};
-
-	// Calculates order cost on change of product or quantity state
-	useEffect(() => {
-		if (quantity > 0) {
-			switch (product) {
-				case 1:
-					setPrice((19.99 * quantity).toFixed(2));
-					break;
-				case 2:
-					setPrice((14.99 * quantity).toFixed(2));
-					break;
-				case 3:
-					setPrice((29.98 * quantity).toFixed(2));
-					break;
-			}
-		}
-	}, [product, quantity]);
 
 	// Sends new order to App, resets form fields
 	const submitHandler = (e) => {
@@ -94,7 +93,9 @@ export default function Form({ onSaveOrderData }) {
 				alignItems: 'center',
 				height: '90vh',
 			}}
-		>
+    >
+
+      {/* Order Confirmation Banner */}
 			<div style={{ position: 'fixed', top: '60px', right: '10px' }}>
 				<Slide direction="left" in={isActive} mountOnEnter unmountOnExit>
 					<Alert
@@ -114,7 +115,9 @@ export default function Form({ onSaveOrderData }) {
 					borderRadius: '5px',
 					backgroundColor: 'rgb(255, 255, 255)',
 				}}
-			>
+      >
+
+        {/* First Name */}
 				<TextField
 					label="First Name"
 					variant="standard"
@@ -122,7 +125,9 @@ export default function Form({ onSaveOrderData }) {
 					sx={{ marginRight: '5px' }}
 					value={firstName}
 					onChange={(e) => setFirstName(e.target.value)}
-				/>
+        />
+
+        {/* Last Name */}
 				<TextField
 					label="Last Name"
 					variant="standard"
@@ -130,7 +135,9 @@ export default function Form({ onSaveOrderData }) {
 					sx={{ marginRight: '5px' }}
 					value={lastName}
 					onChange={(e) => setLastName(e.target.value)}
-				/>
+        />
+
+        {/* Product */}
 				<InputLabel
 					style={{
 						display: 'block',
@@ -151,7 +158,9 @@ export default function Form({ onSaveOrderData }) {
 					<MenuItem value={1}>Shirt</MenuItem>
 					<MenuItem value={2}>Hat</MenuItem>
 					<MenuItem value={3}>Sweatshirt</MenuItem>
-				</Select>
+        </Select>
+
+        {/* Quantity */}
 				<InputLabel
 					style={{
 						display: 'inline-block',
@@ -176,19 +185,23 @@ export default function Form({ onSaveOrderData }) {
 							</MenuItem>
 						);
 					})}
-				</Select>
+        </Select>
+
+        {/* Price */}
 				<InputLabel
 					htmlFor="outlined-adornment-amount"
 					sx={{ margin: '1rem 0 0' }}
 				>
-					Amount
+					Price
 				</InputLabel>
 				<OutlinedInput
 					fullWidth
 					value={price}
 					startAdornment={<InputAdornment position="start">$</InputAdornment>}
 					inputProps={{ readOnly: true }}
-				/>
+        />
+
+        {/* Place Order */}
 				<Button
 					variant="outlined"
 					fullWidth
