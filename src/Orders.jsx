@@ -65,11 +65,11 @@ export default function Orders({ orders }) {
 						xl: 'none',
 					},
 				}}
-      >
-        
+			>
 				{/* Individual cards for smaller screens */}
 				{orders.map((order) => (
 					<Card
+						key={order.orderId}
 						variant="outlined"
 						sx={{ margin: { xs: '1rem 0', sm: '1rem' }, padding: '1rem' }}
 					>
@@ -85,30 +85,32 @@ export default function Orders({ orders }) {
 							{order.orderId}
 						</Typography>
 						<Table>
-							<TableRow>
-								<TableCell
-									sx={{ padding: { xs: '5px', sm: '1rem' }, width: '100px' }}
-								>
-									{`Product: ` + `${order.productName}`}
-								</TableCell>
-								<TableCell
-									sx={{ padding: { xs: '5px', sm: '1rem' }, width: '100px' }}
-								>
-									{`Quantity: ` + `${' ('}` + `${order.quantity}` + `${')'}`}
-								</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell
-									sx={{ padding: { xs: '5px', sm: '1rem' }, width: '100px' }}
-								>
-									{'Total: '}
-								</TableCell>
-								<TableCell
-									sx={{ padding: { xs: '5px', sm: '1rem' }, width: '100px' }}
-								>
-									{`$` + `${order.price}`}
-								</TableCell>
-							</TableRow>
+							<TableBody>
+								<TableRow>
+									<TableCell
+										sx={{ padding: { xs: '5px', sm: '1rem' }, width: '100px' }}
+									>
+										{`Product: ` + `${order.productName}`}
+									</TableCell>
+									<TableCell
+										sx={{ padding: { xs: '5px', sm: '1rem' }, width: '100px' }}
+									>
+										{`Quantity: ` + `${' ('}` + `${order.quantity}` + `${')'}`}
+									</TableCell>
+								</TableRow>
+								<TableRow>
+									<TableCell
+										sx={{ padding: { xs: '5px', sm: '1rem' }, width: '100px' }}
+									>
+										{'Total: '}
+									</TableCell>
+									<TableCell
+										sx={{ padding: { xs: '5px', sm: '1rem' }, width: '100px' }}
+									>
+										{`$` + `${order.price}`}
+									</TableCell>
+								</TableRow>
+							</TableBody>
 						</Table>
 					</Card>
 				))}
