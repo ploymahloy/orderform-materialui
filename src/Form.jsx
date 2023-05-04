@@ -33,7 +33,8 @@ export default function Form({ onSaveOrderData }) {
 					break;
 				case 3:
 					setPrice((29.98 * quantity).toFixed(2));
-					break;
+          break;
+        default: return
 			}
 		}
 	}, [product, quantity]);
@@ -59,7 +60,8 @@ export default function Form({ onSaveOrderData }) {
 			case 2:
 				return 'Hat';
 			case 3:
-				return 'Sweatshirt';
+        return 'Sweatshirt';
+      default: return
 		}
 	};
 

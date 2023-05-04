@@ -49,7 +49,7 @@ export default function Orders({ orders }) {
 								<TableCell>{order.orderId}</TableCell>
 								<TableCell>{order.productName}</TableCell>
 								<TableCell>{order.quantity}</TableCell>
-								<TableCell>{'$' + `${order.price}`}</TableCell>
+								<TableCell>{`${"$" + order.price}`}</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
@@ -74,7 +74,7 @@ export default function Orders({ orders }) {
 						sx={{ margin: { xs: '1rem 0', sm: '1rem' }, padding: '1rem' }}
 					>
 						<Typography variant="h5" component="div">
-							{`${order.firstName}` + `${' '}` + `${order.lastName}`}
+							{`${order.firstName + " " + order.lastName}`}
 						</Typography>
 						<Typography
 							sx={{ fontSize: 14 }}
@@ -90,12 +90,12 @@ export default function Orders({ orders }) {
 									<TableCell
 										sx={{ padding: { xs: '5px', sm: '1rem' }, width: '100px' }}
 									>
-										{`Product: ` + `${order.productName}`}
+										{`${"Product: " + order.productName}`}
 									</TableCell>
 									<TableCell
 										sx={{ padding: { xs: '5px', sm: '1rem' }, width: '100px' }}
 									>
-										{`Quantity: ` + `${' ('}` + `${order.quantity}` + `${')'}`}
+										{`${"Quantity: (" + order.quantity + ")"}`}
 									</TableCell>
 								</TableRow>
 								<TableRow>
@@ -107,7 +107,7 @@ export default function Orders({ orders }) {
 									<TableCell
 										sx={{ padding: { xs: '5px', sm: '1rem' }, width: '100px' }}
 									>
-										{`$` + `${order.price}`}
+										{`${"$" + order.price}`}
 									</TableCell>
 								</TableRow>
 							</TableBody>
